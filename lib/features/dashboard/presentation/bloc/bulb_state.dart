@@ -6,7 +6,7 @@
 // Copyright: Walnut IT 2023
 // ID: 20231005094537
 // 05.10.2023 09:45
-import 'package:cubit_example/state_template/state_template.dart';
+import 'package:bloc_example/state_template/state_template.dart';
 import 'package:equatable/equatable.dart';
 
 /// The [BulbStateData] class represents the data associated with the state of a

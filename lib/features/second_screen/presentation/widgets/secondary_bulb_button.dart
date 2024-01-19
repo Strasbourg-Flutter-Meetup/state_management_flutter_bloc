@@ -6,8 +6,8 @@
 // Copyright: Walnut IT 2023
 // ID: 20231005113334
 // 05.10.2023 11:33
-import 'package:cubit_example/global_event_bus/global_event.dart';
-import 'package:cubit_example/global_event_bus/global_event_bus.dart';
+import 'package:bloc_example/global_event_bus/global_event.dart';
+import 'package:bloc_example/global_event_bus/global_event_bus.dart';
 import 'package:flutter/material.dart';
 
 /// The [SecondaryBulbButton] widget is a Flutter [StatelessWidget] that represents
@@ -27,6 +27,7 @@ class SecondaryBulbButton extends StatelessWidget {
       onPressed: () {
         // Adds a global event to the event bus to update the bulb state.
         GlobalEventBus.instance.addEvent(GlobalEvent.updateBulbState);
+        Navigator.of(context).pop();
       },
       child: const Text('Click me'),
     );

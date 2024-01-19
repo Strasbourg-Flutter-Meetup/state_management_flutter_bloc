@@ -1,4 +1,4 @@
-import 'package:cubit_example/features/dashboard/presentation/screen/dashboard.dart';
+import 'package:bloc_example/features/dashboard/presentation/screen/dashboard.dart';
 import 'package:flutter/material.dart';
 
 /// The [MyApp] widget is the root of the Flutter application. It defines the

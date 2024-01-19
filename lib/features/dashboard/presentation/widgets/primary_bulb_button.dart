@@ -6,10 +6,10 @@
 // Copyright: Walnut IT 2023
 // ID: 20231005094220
 // 05.10.2023 09:42
-import 'package:cubit_example/features/dashboard/presentation/cubit/bulb_cubit.dart';
+import 'package:bloc_example/features/dashboard/presentation/bloc/bulb_bloc.dart';
+import 'package:bloc_example/features/dashboard/presentation/bloc/bulb_events.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 
 /// The [PrimaryBulbButton] widget is a Flutter `StatelessWidget` that represents
 /// a primary button used to control the state of a bulb.
@@ -29,17 +29,16 @@ class PrimaryBulbButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: () {
         // Reads the `BulbCubit` from the context.
-        final cubit = context.read<BulbCubit>();
+        final bloc = context.read<BulbBloc>();
 
         // Checks the current state of the bulb and toggles it accordingly.
-        if (cubit.bulbIsOn) {
-          cubit.switchBulbOff();
+        if (bloc.bulbIsOn) {
+          bloc.add(SwitchBulbOff());
         } else {
-          cubit.switchBulbOn();
+          bloc.add(SwitchBulbOn());
         }
       },
       child: const Text('Click me'),
     );
   }
 }
-

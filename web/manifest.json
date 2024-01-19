@@ -1,11 +1,11 @@
 {
-    "name": "cubit_example",
-    "short_name": "cubit_example",
+    "name": "Bloc Example",
+    "short_name": "Bloc Example",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A project which shows how to set up a state management with cubits.",
+    "description": "A project which shows how to set up a state management with blocs.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

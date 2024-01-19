@@ -6,13 +6,14 @@
 // Copyright: Walnut IT 2023
 // ID: 20231005094046
 // 05.10.2023 09:40
-import 'package:cubit_example/features/dashboard/presentation/cubit/bulb_cubit.dart';
-import 'package:cubit_example/features/dashboard/presentation/cubit/bulb_state.dart';
-import 'package:cubit_example/features/dashboard/presentation/widgets/bulb.dart';
-import 'package:cubit_example/features/dashboard/presentation/widgets/primary_bulb_button.dart';
-import 'package:cubit_example/features/dashboard/presentation/widgets/router_button.dart';
-import 'package:cubit_example/global_event_bus/global_event_bus.dart';
-import 'package:cubit_example/ui/widgets/screen_template.dart';
+import 'package:bloc_example/features/dashboard/presentation/bloc/bulb_bloc.dart';
+import 'package:bloc_example/features/dashboard/presentation/bloc/bulb_events.dart';
+import 'package:bloc_example/features/dashboard/presentation/bloc/bulb_state.dart';
+import 'package:bloc_example/features/dashboard/presentation/widgets/bulb.dart';
+import 'package:bloc_example/features/dashboard/presentation/widgets/primary_bulb_button.dart';
+import 'package:bloc_example/features/dashboard/presentation/widgets/router_button.dart';
+import 'package:bloc_example/global_event_bus/global_event_bus.dart';
+import 'package:bloc_example/ui/widgets/screen_template.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -29,11 +30,11 @@ class Dashboard extends StatelessWidget {
   const Dashboard({super.key});
 
   @override
-  Widget build(BuildContext context) => BlocProvider<BulbCubit>(
-        create: (context) => BulbCubit(
+  Widget build(BuildContext context) => BlocProvider<BulbBloc>(
+        create: (context) => BulbBloc(
           const BulbState.initial(),
           globalEventBus: GlobalEventBus.instance,
-        )..initialize(),
+        )..add(BulbInitialization()),
         child: _DashboardContent(),
       );
 }
@@ -45,7 +46,7 @@ class Dashboard extends StatelessWidget {
 class _DashboardContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) => const ScreenTemplate(
-      widget: Column(
+          widget: Column(
         children: [
           SizedBox(
             height: 96.0,
@@ -62,4 +63,3 @@ class _DashboardContent extends StatelessWidget {
         ],
       ));
 }
-

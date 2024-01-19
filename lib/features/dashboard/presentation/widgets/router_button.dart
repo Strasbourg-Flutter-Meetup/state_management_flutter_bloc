@@ -7,7 +7,7 @@
 // ID: 20231005110914
 // 05.10.2023 11:09
 
-import 'package:cubit_example/features/second_screen/presentation/screen/second_screen.dart';
+import 'package:bloc_example/features/second_screen/presentation/screen/second_screen.dart';
 import 'package:flutter/material.dart';
 
 /// The [RouterButton] widget is a Flutter [StatelessWidget] that represents

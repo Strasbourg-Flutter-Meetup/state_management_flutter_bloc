@@ -6,11 +6,11 @@
 // Copyright: Walnut IT 2023
 // ID: 20231005094420
 // 05.10.2023 09:44
-import 'package:cubit_example/features/dashboard/presentation/cubit/bulb_cubit.dart';
-import 'package:cubit_example/state_template/state_template.dart';
-import 'package:cubit_example/ui/widgets/center_template.dart';
-import 'package:cubit_example/ui/widgets/error_message.dart';
-import 'package:cubit_example/ui/widgets/loading_cycle.dart';
+import 'package:bloc_example/features/dashboard/presentation/bloc/bulb_bloc.dart';
+import 'package:bloc_example/state_template/state_template.dart';
+import 'package:bloc_example/ui/widgets/center_template.dart';
+import 'package:bloc_example/ui/widgets/error_message.dart';
+import 'package:bloc_example/ui/widgets/loading_cycle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -28,7 +28,7 @@ class Bulb extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Obtain the current state from the BulbCubit using the context.
-    final state = context.watch<BulbCubit>().state;
+    final state = context.watch<BulbBloc>().state;
 
     // Determine the UI to display based on the state.
     switch (state.type) {

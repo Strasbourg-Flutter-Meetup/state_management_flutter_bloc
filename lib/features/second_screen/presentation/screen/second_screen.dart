@@ -1,6 +1,6 @@
-import 'package:cubit_example/features/second_screen/presentation/widgets/secondary_bulb_button.dart';
-import 'package:cubit_example/ui/widgets/center_template.dart';
-import 'package:cubit_example/ui/widgets/screen_template.dart';
+import 'package:bloc_example/features/second_screen/presentation/widgets/secondary_bulb_button.dart';
+import 'package:bloc_example/ui/widgets/center_template.dart';
+import 'package:bloc_example/ui/widgets/screen_template.dart';
 import 'package:flutter/material.dart';
 
 /// The [SecondScreen] widget is a Flutter `StatelessWidget` that represents
@@ -37,4 +37,3 @@ class SecondScreen extends StatelessWidget {
     );
   }
 }
-

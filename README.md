@@ -1,8 +1,9 @@
 # Cubit Examples
 
-A project which shows how to set up a state management with cubits. 
+A project which shows how to set up a state management
+with [blocs](https://bloclibrary.dev/#/coreconcepts?id=bloc) .
 
 This project contains following examples:
 
-1. Simple cubit for one widget.
-2. Inter cubit communication by using streams.
+1. Simple blog for one widget.
+2. Inter widget communication by using streams.
