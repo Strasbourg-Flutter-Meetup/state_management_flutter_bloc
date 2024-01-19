@@ -86,11 +86,6 @@ class BulbBloc extends Bloc<BulbEvent, BulbState> {
     _updateStateData();
   }
 
-  /// Cancels the subscription to the global event bus.
-  Future<void> cancelGlobalEventBusStreamSubscription() async {
-    await _globalEventBusStreamSubscription?.cancel();
-  }
-
   /// Private method to update the state data based on the current state of the bulb.
   void _updateStateData() {
     _stateData = BulbStateData(bulbIsOn: _bulbIsOn);
