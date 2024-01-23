@@ -1,5 +1,7 @@
 import 'package:bloc_example/features/dashboard/presentation/screen/dashboard.dart';
+import 'package:bloc_example/util/app_bloc_observer.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 /// The [MyApp] widget is the root of the Flutter application. It defines the
 /// top-level configuration for the app, including its title, theme, and the
@@ -32,6 +34,7 @@ class MyApp extends StatelessWidget {
 }
 
 void main() {
+  Bloc.observer = const AppBlocObserver();
   // Runs the Flutter application, with `MyApp` as the root widget.
   runApp(const MyApp());
 }
