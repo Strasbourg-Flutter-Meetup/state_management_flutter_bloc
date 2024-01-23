@@ -21,92 +21,76 @@ class BulbBloc extends Bloc<BulbEvent, BulbState> {
   ///
   /// Takes [initialState] to set the initial state of the bloc and
   /// a required [globalEventBus] to listen to global events.
-  BulbBloc(
-    super.initialState, {
+  BulbBloc({
     required this.globalEventBus,
-  }) {
-    on<BulbInitialization>((event, emit) {
-      initialize();
-      emit(BulbState.initialized(
-        data: _stateData,
-      ));
-    });
-
-    on<SwitchBulbOn>((event, emit) {
-      emit(const BulbState.loading());
-
-      switchBulbOn();
-
-      emit(BulbState.loaded(
-        data: _stateData,
-      ));
-    });
-
-    on<SwitchBulbOff>((event, emit) {
-      emit(const BulbState.loading());
-
-      switchBulbOff();
-
-      emit(BulbState.loaded(
-        data: _stateData,
-      ));
-    });
+  }) : super(const BulbState.initial()) {
+    on<BulbInitialize>(_onBulbInitialize);
+    on<SubscribeToGlobalEventBus>(_onSubscribeToGlobalEventBus);
+    on<SwitchBulbOn>(_onSwitchBulbOn);
+    on<SwitchBulbOff>(_onSwitchBulbOff);
   }
 
   /// A reference to the [GlobalEventBus] used for subscribing to global events.
   GlobalEventBus globalEventBus;
 
-  /// Private field for storing state data.
-  BulbStateData? _stateData;
+  Future<void> _changeBulbState(Emitter<BulbState> emit, bool bulbIsOn) async {
+    emit(const BulbState.loading());
 
-  /// Private field indicating whether the bulb is on or off.
-  bool _bulbIsOn = false;
+    // Do some async work
+    // await Future.delayed(const Duration(seconds: 1));
 
-  /// A stream subscription for listening to global events.
-  StreamSubscription? _globalEventBusStreamSubscription;
-
-  /// Public getter to know if the bulb is currently on.
-  bool get bulbIsOn => _bulbIsOn;
-
-  /// Initializes the bloc by setting up listeners and updating state data.
-  void initialize() {
-    _listenToGlobalEventBus();
-    _updateStateData();
+    emit(
+      BulbState.loaded(
+        data: BulbStateData(bulbIsOn: bulbIsOn),
+      ),
+    );
   }
 
-  /// Method to switch the bulb on.
-  void switchBulbOn() {
-    _bulbIsOn = true;
-    _updateStateData();
+  FutureOr<void> _onBulbInitialize(
+    BulbInitialize event,
+    Emitter<BulbState> emit,
+  ) async {
+    add(SubscribeToGlobalEventBus());
+    emit(
+      const BulbState.initialized(
+        data: BulbStateData(bulbIsOn: BulbStateData.bulbDefaultValue),
+      ),
+    );
   }
 
-  /// Method to switch the bulb off.
-  void switchBulbOff() {
-    _bulbIsOn = false;
-    _updateStateData();
+  FutureOr<void> _onSubscribeToGlobalEventBus(
+    SubscribeToGlobalEventBus event,
+    Emitter<BulbState> emit,
+  ) async {
+    await emit.onEach(
+      globalEventBus.eventBus
+          .where((event) => event == GlobalEvent.updateBulbState),
+      onData: (_) {
+        if (state.bulbIsOn) {
+          add(SwitchBulbOff());
+        } else {
+          add(SwitchBulbOn());
+        }
+      },
+      onError: (error, stackTrace) {
+        // ignore: avoid_print
+        print(error);
+        emit(const BulbState.error());
+      },
+    );
   }
 
-  /// Private method to update the state data based on the current state of the bulb.
-  void _updateStateData() {
-    _stateData = BulbStateData(bulbIsOn: _bulbIsOn);
+  FutureOr<void> _onSwitchBulbOff(
+    SwitchBulbOff event,
+    Emitter<BulbState> emit,
+  ) async {
+    await _changeBulbState(emit, false);
   }
 
-  /// Sets up a listener on the global event bus for bulb state updates.
-  void _listenToGlobalEventBus() {
-    _globalEventBusStreamSubscription = globalEventBus.eventBus
-        .where((event) => event == GlobalEvent.updateBulbState)
-        .listen((event) {
-      if (_bulbIsOn) {
-        add(SwitchBulbOff());
-      } else {
-        add(SwitchBulbOn());
-      }
-    });
-  }
-
-  @override
-  Future<void> close() async {
-    await _globalEventBusStreamSubscription?.cancel();
-    return super.close();
+  FutureOr<void> _onSwitchBulbOn(
+    SwitchBulbOn event,
+    Emitter<BulbState> emit,
+  ) async {
+    await _changeBulbState(emit, true);
   }
 }

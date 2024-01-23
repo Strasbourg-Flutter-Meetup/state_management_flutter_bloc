@@ -18,7 +18,7 @@ abstract class BulbEvent {}
 /// This event is typically dispatched when the Bulb functionality is
 /// being set up or started. It can be used to perform any initial
 /// setup required for the Bulb.
-class BulbInitialization extends BulbEvent {}
+class BulbInitialize extends BulbEvent {}
 
 /// Event to switch the Bulb on.
 ///
@@ -34,3 +34,5 @@ class SwitchBulbOn extends BulbEvent {}
 /// required to change the state of the Bulb to an 'off' state.
 class SwitchBulbOff extends BulbEvent {}
 
+/// Event to subscribe to the global event bus.
+class SubscribeToGlobalEventBus extends BulbEvent {}

@@ -8,6 +8,7 @@
 // 05.10.2023 09:42
 import 'package:bloc_example/features/dashboard/presentation/bloc/bulb_bloc.dart';
 import 'package:bloc_example/features/dashboard/presentation/bloc/bulb_events.dart';
+import 'package:bloc_example/features/dashboard/presentation/bloc/bulb_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -30,9 +31,10 @@ class PrimaryBulbButton extends StatelessWidget {
       onPressed: () {
         // Reads the `BulbCubit` from the context.
         final bloc = context.read<BulbBloc>();
+        final bulbIsOn = bloc.state.bulbIsOn;
 
         // Checks the current state of the bulb and toggles it accordingly.
-        if (bloc.bulbIsOn) {
+        if (bulbIsOn) {
           bloc.add(SwitchBulbOff());
         } else {
           bloc.add(SwitchBulbOn());

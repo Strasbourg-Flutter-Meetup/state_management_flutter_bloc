@@ -8,7 +8,6 @@
 // 05.10.2023 09:40
 import 'package:bloc_example/features/dashboard/presentation/bloc/bulb_bloc.dart';
 import 'package:bloc_example/features/dashboard/presentation/bloc/bulb_events.dart';
-import 'package:bloc_example/features/dashboard/presentation/bloc/bulb_state.dart';
 import 'package:bloc_example/features/dashboard/presentation/widgets/bulb.dart';
 import 'package:bloc_example/features/dashboard/presentation/widgets/primary_bulb_button.dart';
 import 'package:bloc_example/features/dashboard/presentation/widgets/router_button.dart';
@@ -32,9 +31,8 @@ class Dashboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) => BlocProvider<BulbBloc>(
         create: (context) => BulbBloc(
-          const BulbState.initial(),
           globalEventBus: GlobalEventBus.instance,
-        )..add(BulbInitialization()),
+        )..add(BulbInitialize()),
         child: _DashboardContent(),
       );
 }

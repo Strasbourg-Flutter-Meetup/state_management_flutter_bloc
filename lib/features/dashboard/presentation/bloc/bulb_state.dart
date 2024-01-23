@@ -21,21 +21,27 @@ class BulbStateData extends Equatable {
   /// Indicates whether the bulb is on (`true`) or off (`false`).
   final bool bulbIsOn;
 
+  static const bulbDefaultValue = false;
+
   @override
   List<Object?> get props => [
-    bulbIsOn,
-  ];
+        bulbIsOn,
+      ];
 
   /// Creates a copy of the [BulbStateData] object with optional parameter values.
   ///
   /// [bulbIsOn] is an optional parameter to update the `bulbIsOn` property.
   /// If not provided, the current `bulbIsOn` value will be retained.
   BulbStateData copyWith({bool? bulbIsOn}) => BulbStateData(
-    bulbIsOn: bulbIsOn ?? this.bulbIsOn,
-  );
+        bulbIsOn: bulbIsOn ?? this.bulbIsOn,
+      );
 }
 
 /// A typedef for the [BulbState] using a custom `StateTemplate` with
 /// `BulbStateData`.
 typedef BulbState = StateTemplate<BulbStateData>;
 
+extension BulbStateExtension on BulbState {
+  /// Returns the `bulbIsOn` property of the [BulbStateData] object.
+  bool get bulbIsOn => data?.bulbIsOn ?? BulbStateData.bulbDefaultValue;
+}
